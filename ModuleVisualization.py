@@ -7,7 +7,7 @@ import numpy as np
 import datetime as DT
 import bokeh
 from bokeh.plotting import figure, show, output_notebook, output_file, gmap
-from bokeh.models import NumeralTickFormatter, ColumnDataSource, GMapOptions
+from bokeh.models import NumeralTickFormatter, ColumnDataSource, GMapOptions, Circle
 import re
 
 
@@ -224,8 +224,9 @@ def line_plot_pos(df,x,y,mapping,droptop=True):
     #Attack
     y1 = grouped_pos.get_group('Attack')
     #FOR B or C
-    #y1.drop(y1[y1.full_name == 'L. Messi'].index, inplace=True)
-    #y1.drop(y1[y1.full_name == 'Cristiano Ronaldo'].index, inplace=True)
+    if droptop == True:
+        y1.drop(y1[y1.full_name == 'L. Messi'].index, inplace=True)
+        y1.drop(y1[y1.full_name == 'Cristiano Ronaldo'].index, inplace=True)
     grouped =  y1.set_index(x).groupby(x)
     y1 = grouped.agg([np.mean])
     #Defense
@@ -287,6 +288,56 @@ def scatter_plot(df,x,y,pos=None):
     p.xaxis.axis_label = '%s'%x
     p.yaxis.axis_label = '%s'%y
     return p
+
+def bubble_scatter_plot(df,x,y,z,norm=1.6):
+
+    """
+    bubble plot showing y vs x
+    with z as the size of bubbles
+
+    :param: df, dataset
+    :type: pandas dataframe
+    :param: x, attribute to be on x axis
+    :type: str
+    :param: y, attribute to be on y axis
+    :type: str
+    :param: z, attribute to be size of bubbles
+    :type: str
+
+    """
+
+    output_notebook()
+
+    df_4e = df
+    #filter
+    df_4e = df_4e[[x,y,z]]
+
+    #group by rating
+    grouped = df_4e.set_index(x).groupby(x)
+    df_4e = grouped.agg([np.nanmean])
+
+    source = ColumnDataSource(
+        data=dict(x=df[x],
+                y=df[y],
+                size=(df[z]-18)*norm))
+
+
+    #plot
+    p = figure(title="%s vs %s vs %s"%(z,y,x),plot_width=800, plot_height=400)
+    p.grid.grid_line_color = None
+    p.background_fill_color = "white"
+
+    circle = Circle(x='x', y='y', size='size', fill_color='orange', fill_alpha=0.4, line_color=None)
+    p.add_glyph(source, circle)
+
+    p.scatter(df_4e.index,df_4e[y]['nanmean'], marker='o', size=15,
+                color="red", alpha=0.9)
+    p.xaxis.axis_label = '%s'%x
+    p.yaxis.axis_label = '%s'%y
+
+    #legend
+    return p
+
 
 def world_map_plot(df,norm,outfile,club=True,color='blue'):
 
