@@ -1,4 +1,10 @@
 def loader():
+	'''
+	Returns Features, labels and list of feature names
+
+	Loads data from various players.csv and outputs the data in the above numpy array format
+
+	'''
 	import pandas as pd
 	import numpy as np
 
@@ -25,6 +31,12 @@ def loader():
 	return Featuresnp, Ydata,featurenames
 
 def loader_mlmodel():
+	'''
+	Returns pandas dataframe
+
+	Loads data from various players.csv and outputs numpy dataframe
+
+	'''
 	import pandas as pd
 	#read file
 	df1 = pd.read_csv('players11.csv')
