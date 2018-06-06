@@ -412,7 +412,7 @@ def world_map_plot(df,norm,outfile,club=True,color='blue'):
                 lon=lonn,
                 size=sizes*norm))
 
-    p.circle(x="lon", y="lat", size="size", fill_color=color, fill_alpha=0.8, source=source)
+    p.circle(x="lon", y="lat", size="size", fill_color=color,line_color=color, fill_alpha=0.8, source=source)
 
     output_file(outfile)
 
