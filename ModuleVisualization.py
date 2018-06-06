@@ -17,6 +17,18 @@ def radar_plot(df,Attributes,mapping,outfile,user=True,GK=True):
     plot position profiles for each position 
     average of all values
     User-defined characteristics
+    :param: df, dataset
+    :type: pandas dataframe
+    :param: Attributes, list of attributes to be viewed
+    :type: list, str
+    :param: mapping, dictionary mapping playing position keys to positions
+    :type: dict
+    :param: outfile, name of output file
+    :type: str
+    :param: user, whether to use user parameters or machine learned
+    :type: boolean
+    :param: GK, whether to keep or drop goalkeepers
+    :type: boolean
 
     """
 
@@ -97,6 +109,24 @@ def radar_plot(df,Attributes,mapping,outfile,user=True,GK=True):
     fig.savefig('%s.png'%outfile)
 
 def bar_plot(df,x='age',y='wage',color='firebrick',droptop=True):
+    '''
+    make bar plot 
+
+    :param: df, dataset
+    :type: pandas dataframe
+    :param: x, attribute to be considered on x axis
+    :type: str
+    :param: y, attribute to be considered on y axis
+    :type: str
+    :param: color, color of bars
+    :type: str
+    :param: droptop, choose to drop top players
+    :type: boolean
+    
+    '''
+
+    
+    
     output_notebook()
 
     df_2b = df
@@ -128,6 +158,15 @@ def line_plot(df,x,y1,y2):
     line chart showing 
     Y1 and Y2 vs X
 
+    :param: df, dataset
+    :type: pandas dataframe
+    :param: x, attribute to be considered on x axis
+    :type: str
+    :param: y1, attribute to be considered on y axis
+    :type: str 
+    :param: y2, attribute to be considered on y axis
+    :type: str
+
     """
 
     
@@ -155,6 +194,18 @@ def line_plot_pos(df,x,y,mapping,droptop=True):
     line chart for positions
 
     Showing y vs x per position
+
+    :param: df, dataset
+    :type: pandas dataframe
+    :param: x, attribute to be considered on x axis
+    :type: str
+    :param: y, attribute to be considered on y axis
+    :type: str
+    :param: mapping, dictionary mapping playing position keys to positions
+    :type: dict
+    :param: droptop, choose whether to drop top players
+    :type: boolean
+
     """
 
     output_notebook()
@@ -202,6 +253,15 @@ def scatter_plot(df,x,y,pos=None):
     scatter plot showing y vs x
     showing all players and mean
 
+    :param: df, dataset
+    :type: pandas dataframe
+    :param: x, attribute to be considered on x axis
+    :type: str
+    :param: y, attribute to be considered on y axis
+    :type: str
+    :param: pos, choose which position to focus on
+    :type: str
+
     """
 
     output_notebook()
@@ -240,6 +300,7 @@ def world_map_plot(df,norm,outfile,club=True,color='blue'):
     :type: float
     :param: outfile, name of output image
     :type: str
+    
     """
     map_options = GMapOptions(lat=18.85605, lng=11.34108, map_type="roadmap", zoom=1) 
 
