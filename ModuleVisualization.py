@@ -249,7 +249,7 @@ def line_plot_pos(df,x,y,mapping,droptop=True):
 
     return p
 
-def scatter_plot(df,x,y,pos=None):
+def scatter_plot(df,x,y):
     """
     scatter plot showing y vs x
     showing all players and mean
@@ -260,19 +260,12 @@ def scatter_plot(df,x,y,pos=None):
     :type: str
     :param: y, attribute to be considered on y axis
     :type: str
-    :param: pos, choose which position to focus on
-    :type: str
-
     """
 
     output_notebook()
 
     df_4d = df
     df_gk = df
-    if pos != None:
-        df_4d = df_4d[df_4d.club_pos == pos]
-        df_gk = df[df.club_pos == pos]
-        df_gk = df_gk[[x,y]]
     #group by rating
     df_4d = df_4d[[x,y]]
     grouped = df_4d.set_index(x).groupby(x)
@@ -417,3 +410,12 @@ def world_map_plot(df,norm,outfile,club=True,color='blue'):
     output_file(outfile)
 
     return p
+
+def get_Position(df,mapping):
+    """
+    cleans dataset to show positions
+    :param: df, dataset
+    :type: pandas dataframe
+    """
+    df['club_pos'].map(mapping)
+    return df
