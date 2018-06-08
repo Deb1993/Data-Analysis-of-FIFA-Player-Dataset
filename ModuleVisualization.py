@@ -311,6 +311,54 @@ def line_plot(df,x,y1,y2):
 
     return p
 
+def stack_plot(df,x,y,outfile):
+
+    """
+    stack chart showing 
+    Y1 and Y2 vs X
+
+    :param: df, dataset
+    :type: pandas dataframe
+    :param: x, attribute to be considered on x axis
+    :type: str
+    :param: y, attribute to be considered on y axis
+    :type: str 
+    :param: outfile, name of output file
+    :type: str
+
+    """
+   
+    assert isinstance(df, pd.DataFrame),'Input must be a dataframe!'
+    assert isinstance(x, str), 'X-axis must be a string!'
+    assert isinstance(y, str), 'Y1 series must be a string!'
+    assert x in att, 'Not an attribute!'
+    assert y in att, 'Not an attribute!'
+    assert isinstance(outfile,str)
+
+    
+    output_notebook()   
+        
+    df_3e = df
+
+    #filter
+    df_3e = df_3e[[y,x]]
+    #group by age
+    grouped = df_3e.set_index(x).groupby(x)
+    df_3e = grouped.agg([np.nanmean])
+
+    #plot
+    fig, ax = plt.subplots(figsize=(20,10),dpi=220)
+    plt.stackplot(df_3e.index, df_3e[y]['nanmean'])
+    plt.xlabel('%s(cm)'%x,fontsize=20)
+    plt.ylabel('%s'%y,fontsize=20)
+    plt.title('%s vs %s'%(y,x),fontsize=20)
+    plt.xticks(size=20)
+    plt.yticks(size=20)
+    ax.legend()
+    fig.savefig('%s'%outfile)
+    return plt
+
+
 def line_plot_pos(df,x,y,mapping):
     """
     line chart for positions
@@ -371,6 +419,7 @@ def line_plot_pos(df,x,y,mapping):
     p.yaxis.axis_label = y
 
     return p
+
 
 def scatter_plot(df,x,y):
     """
