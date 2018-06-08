@@ -69,8 +69,10 @@ def playerpos(player,df,clf,Featuresnp):
 	Featuresnp : numpy array of features of all players
 	'''
 	import numpy as np
+	import pandas as pd
 	assert isinstance(player,str)
 	assert isinstance(Featuresnp,np.ndarray)
+	assert isinstance(df,pd.DataFrame)
 	pos=position(player,df)
 	result= clf.predict(Featuresnp[pos:pos+1])
 	if result[0]==3:
