@@ -45,8 +45,39 @@ def loader_mlmodel():
 
 	frames = [df1, df2]
 	df = pd.concat(frames,ignore_index=True)
-
+	
 	df = df[(df['club_pos']!='SUB') & (df['club_pos']!='RES')]
+	df= df.reset_index()
 	return df
 
+def position(name,df):
+	'''
+	name : name should be a string, name of the player whose index should be returned
+	df   : df should be a panda data frame, dataframe from which the index of the player should be returned 
+	'''
+	assert isinstance(name,str)
+	for i in range(len(df['full_name'])):
+		if (df['full_name'][i]):
+			if df['full_name'][i]==name:
+				return i
 
+def playerpos(player,df,clf,Featuresnp):
+	'''
+	player: player should be a string, name of the player whose position should be returned
+	df:     df should be a panda data frame, dataframe from which the index of the player should be returned 
+	clf:    clf is the SVM classifier model from sklearn
+	Featuresnp : numpy array of features of all players
+	'''
+	import numpy as np
+	assert isinstance(player,str)
+	assert isinstance(Featuresnp,np.ndarray)
+	pos=position(player,df)
+	result= clf.predict(Featuresnp[pos:pos+1])
+	if result[0]==3:
+		print("He should play as a Striker")
+	elif result[0]==2:
+		print("He should play as a Midfielder")
+	elif result[0]==1:
+		print("He should play as a Defender")
+	elif result[0]==0:
+		print("He should play as a Goalkeeper")
