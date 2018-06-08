@@ -8,7 +8,7 @@ conda install bokeh
 ## dataloader.py has various functions used by Feauture_Selection.ipynb and MachineLearning_models.ipynb
 ## Feature_Selection.ipynb selects the features used for classification using RFE or recursive feature elimination
 ## MachineLearning_models.ipynb fits an SVM model to the data set and gives the feature importance for each position
-## Similarity Matrix.ipynb gives the simlarities/correlation between each of the 4 positions and plots a heatmap based on it
+## Similarity Matrix.ipynb gives the similarities/correlation between each of the 4 positions and plots a heatmap based on it
 # Dataset
 ## players11.csv - Top 480 players data, 48 attributes
 ## players12.csv - ~8000 players data, 48 attributes
