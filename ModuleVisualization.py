@@ -21,7 +21,7 @@ att = ['Acceleration','Aggression','Agility','Balance','BallControl','Composure'
 def radar_plot(df,Attributes,mapping,outfile,textsize=20):
     
     """
-    plot position profiles for each position 
+    plot position profiles for each position on separate plots
     average of all values
     User-defined characteristics
     :param: df, dataset
@@ -111,7 +111,7 @@ def radar_plot(df,Attributes,mapping,outfile,textsize=20):
 def radar_plot_single(df,Attributes,mapping,outfile,textsize=20,position=None):
     
     """
-    plot position profiles for each position 
+    plot position profiles for each position on one plot
     average of all values
     User-defined characteristics
     :param: df, dataset
@@ -314,8 +314,8 @@ def line_plot(df,x,y1,y2):
 def stack_plot(df,x,y,outfile):
 
     """
-    stack chart showing 
-    Y1 and Y2 vs X
+    area chart showing 
+    Y vs X
 
     :param: df, dataset
     :type: pandas dataframe
@@ -502,11 +502,10 @@ def bubble_scatter_plot(df,x,y,z,norm=1.6):
     p = figure(title="%s vs %s vs %s"%(z,y,x),plot_width=800, plot_height=400)
     p.grid.grid_line_color = None
     p.background_fill_color = "white"
-
-    #circle = Circle(x='x', y='y', size='size', fill_color='orange', fill_alpha=0.4, line_color=None)
-    #p.add_glyph(source, circle)
+    #bubbles
     p.scatter(df[x],df[y],marker='o', size=(df[z]-18)*norm,
                 color="orange", alpha=0.8)
+    #mean scatter
     p.scatter(df_4e.index,df_4e[y]['nanmean'], marker='o', size=15,
                 color="red", alpha=0.9)
     p.xaxis.axis_label = '%s'%x
