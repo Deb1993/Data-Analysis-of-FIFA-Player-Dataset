@@ -1,4 +1,4 @@
-# ECE_143_Group_3
+# Data Analysis of FIFA Player Dataset
 ## install bokeh to view images with the below command
 conda install bokeh
 
